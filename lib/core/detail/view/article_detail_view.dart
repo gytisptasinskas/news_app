@@ -24,7 +24,6 @@ class ArticleDetailView extends StatelessWidget {
                 var top = constraints.biggest.height;
                 bool isCollapsed = top <= 150;
                 return FlexibleSpaceBar(
-                  centerTitle: true,
                   title: AnimatedOpacity(
                     opacity: isCollapsed ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 250),

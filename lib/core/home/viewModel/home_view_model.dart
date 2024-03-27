@@ -1,10 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article.dart';
 import 'package:news_app/services/news_api_service.dart';
 import 'package:news_app/util/errors.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final NewsApiService _newsApiService = NewsApiService();
+  final NewsApiService _newsApiService = NewsApiService(dio: Dio());
 
   List<Article> _articles = [];
   List<Article> get articles => _articles;

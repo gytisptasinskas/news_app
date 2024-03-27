@@ -7,22 +7,23 @@ import 'package:news_app/services/api_service.dart';
 import 'package:news_app/util/errors.dart';
 
 class NewsApiService implements ApiService {
-  final Dio _dio = Dio();
+  final Dio dio;
   final String _baseUrl = "https://newsapi.org/v2";
-  final _apiKey = dotenv.env['NEWS_API_KEY']!;
 
+  NewsApiService({required this.dio});
 
   @override
   Future<List<Article>> fetchNews({String country = 'us'}) async {
+    final apiKey = dotenv.env['NEWS_API_KEY'];
+    
     try {
-      final response = await _dio.get(
+     final response = await dio.get(
         '$_baseUrl/top-headlines',
         queryParameters: {
           'country': country,
-          'apiKey': _apiKey,
+          'apiKey': apiKey,
         },
       );
-
       if (response.statusCode == 200) {
         final List<dynamic> articlesJson = response.data['articles'];
         return articlesJson.map((json) => Article.fromJson(json)).toList();
