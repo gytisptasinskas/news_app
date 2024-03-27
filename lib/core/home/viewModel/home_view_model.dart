@@ -5,7 +5,7 @@ import 'package:news_app/services/news_api_service.dart';
 import 'package:news_app/util/errors.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final NewsApiService _newsApiService = NewsApiService(dio: Dio());
+  final NewsApiService _newsApiService;
 
   List<Article> _articles = [];
   List<Article> get articles => _articles;
@@ -15,6 +15,9 @@ class HomeViewModel extends ChangeNotifier {
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
+
+  HomeViewModel({NewsApiService? newsApiService})
+      : _newsApiService = newsApiService ?? NewsApiService(dio: Dio());
 
   void fetchArticles(String country) async {
     _isLoading = true;

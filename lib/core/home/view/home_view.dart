@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/home/viewModel/home_view_model.dart';
+import 'package:news_app/services/news_api_service.dart';
 import 'package:news_app/widgets/article_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +11,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeViewModel>(
-      create: (_) => HomeViewModel()..fetchArticles('us'),
+      create: (_) => HomeViewModel(newsApiService: NewsApiService(dio: Dio()))..fetchArticles('us'),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('News Articles'),
