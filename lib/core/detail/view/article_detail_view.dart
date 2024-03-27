@@ -24,24 +24,25 @@ class ArticleDetailView extends StatelessWidget {
                 var top = constraints.biggest.height;
                 bool isCollapsed = top <= 150;
                 return FlexibleSpaceBar(
-                  centerTitle:true,
+                  centerTitle: true,
                   title: AnimatedOpacity(
                     opacity: isCollapsed ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 250),
                     child: const Text(
                       'News App',
-                      style: TextStyle(
-                          color: Colors.black
-                          ),
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  background: article.urlToImage != null &&
-                          article.urlToImage!.isNotEmpty
-                      ? Image.network(
-                          article.urlToImage!,
-                          fit: BoxFit.cover,
-                        )
-                      : const Icon(Icons.image_not_supported, size: 150),
+                  background: Hero(
+                    tag: 'image_${article.url}',
+                    child: article.urlToImage != null &&
+                            article.urlToImage!.isNotEmpty
+                        ? Image.network(
+                            article.urlToImage!,
+                            fit: BoxFit.cover,
+                          )
+                        : const Icon(Icons.image_not_supported, size: 150),
+                  ),
                 );
               },
             ),

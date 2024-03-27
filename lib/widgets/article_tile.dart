@@ -25,23 +25,29 @@ class ArticleTile extends StatelessWidget {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(article.description ?? "No description", maxLines: 2,),
+              Text(
+                article.description ?? "No description",
+                maxLines: 2,
+              ),
               Text("Date: $formattedDate")
             ],
           ),
-          leading: article.urlToImage != null && article.urlToImage!.isNotEmpty
-              ? Image.network(
-                  article.urlToImage!,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.image_not_supported),
-                )
-              : const SizedBox(
-                  width: 100,
-                  child: Center(
-                    child: Icon(Icons.image_not_supported),
+          leading: Hero(
+            tag: 'image_${article.url}',
+            child: article.urlToImage != null && article.urlToImage!.isNotEmpty
+                ? Image.network(
+                    article.urlToImage!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.image_not_supported),
+                  )
+                : const SizedBox(
+                    width: 100,
+                    child: Center(
+                      child: Icon(Icons.image_not_supported),
+                    ),
                   ),
-                ),
+          ),
           onTap: () {
             Navigator.push(
               context,
